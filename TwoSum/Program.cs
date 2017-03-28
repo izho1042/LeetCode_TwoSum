@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,20 +16,21 @@ namespace TwoSum
 
         public int[] TwoSum(int[] nums, int target)
         {
+            Dictionary<int,int> map = new Dictionary<int, int>();
+            int[] result = new int[0];
             int length = nums.Length;
-            int[] ans = null;
-            for (int i = 0; i < length - 1; i++)
+            for (int i = 0; i < length; i++)
             {
-                for (int j = i + 1; j < length; j++)
+                int other = target - nums[i];
+
+                if (map.ContainsKey(other))
                 {
-                    if (nums[i] + nums[j] == target)
-                    {
-                        ans = new[] {i, j};
-                        return ans;
-                    }
+                    result = new[] { map[other], i};
+                    return result;
                 }
+                map.Add(nums[i], i);
             }
-            return ans;
+            return result;
         }
     }
 }
